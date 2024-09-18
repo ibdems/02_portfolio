@@ -1,0 +1,32 @@
+:root {
+    --background-color: #000000;
+    /* Background color for the entire website, including individual sections */
+    --default-color: #fafafa;
+    /* Default color used for the majority of the text content across the entire website */
+    --heading-color: #ffffff;
+    /* Color for headings, subheadings and title throughout the website */
+    --accent-color: #18d26e;
+    /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+    --surface-color: #1a1a1a;
+    /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
+    --contrast-color: #000000;
+    /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
+}
+.icon-circle {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.timeline-line {
+    background-color: var(--accent-color);
+    /* Couleur de la ligne */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
