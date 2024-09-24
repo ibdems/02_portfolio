@@ -5,6 +5,11 @@
 <div class="page-title" data-aos="fade">
     <div class="heading">
         <div class="container">
+            {% if messages %}
+          {% for message in messages %}
+          <div class="alert alert-info">{{ message }}</div>
+          {% endfor %}
+          {% endif %}
             <div class="row d-flex justify-content-center text-center">
                 <div class="col-lg-8">
                     <h1>Details de l'article</h1>

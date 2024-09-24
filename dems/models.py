@@ -157,8 +157,9 @@ class Comment(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)
     content = models.TextField()
     user_response = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
-    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
-    date_published = models.DateTimeField(auto_now_add=True) 
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, null=True, blank=True)
+    date_published = models.DateTimeField(auto_now_add=True)
+    project = models.ForeignKey(Project, blank=True, null=True, on_delete=models.CASCADE) 
 
     def __str__(self) -> str:
         return self.content
