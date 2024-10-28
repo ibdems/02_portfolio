@@ -1,6 +1,6 @@
 from typing import Any
 from django.shortcuts import redirect, render
-from django.views.generic import ListView, TemplateView, DetailView, CreateView
+from django.views.generic import ListView, TemplateView, DetailView
 from django.contrib import messages
 from datetime import date
 from dems.forms import CommentForm, ContactForm
