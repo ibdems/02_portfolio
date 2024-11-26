@@ -50,7 +50,7 @@ jobs:
         run: docker login -u $username -p $password
 
       - name: Build the Docker image
-        run: docker build . -t $username/portfolio:latest
+        run: docker build . -t devibrahima/portfolio:latest
 
       - name: Push Docker Image to registry
-        run: docker push $username/portfolio:latest
+        run: docker push devibrahima/portfolio:latest
