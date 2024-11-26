@@ -39,7 +39,7 @@
             <div class="portfolio-details-slider swiper init-swiper">
 
               <div class="swiper-wrapper align-items-center">
-                
+
                 <div class="swiper-slide">
                   {% if project.demo %}
                     <video width="100%" height="auto" controls>
@@ -49,11 +49,11 @@
                   {% else %}
                     <img src="{{project.image.url}}" alt="">
                   {% endif %}
-                  
+
                 </div>
 
               </div>
-              
+
             </div>
           </div>
 
@@ -62,13 +62,13 @@
               <h3>Les informations du projet</h3>
               <ul>
                 <li><strong>Categorie</strong>: {{project.category.name}}</li>
-                
+
                 <li><strong>Ajouté le</strong>: {{project.created_at}}</li>
                 {% if projet.status %}
                 <li><strong>URL du projet</strong>: <a href="#">{{project.link}}</a></li>
                 {% endif %}
                 <li><strong>Statut</strong>: {{project.status}}</li>
-                
+
               </ul>
             </div>
             <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
@@ -136,4 +136,4 @@
 
     </section>
 {% endblock content %}
-    
+

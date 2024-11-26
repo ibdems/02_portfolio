@@ -9,83 +9,138 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('dems', '0002_user_is_staff'),
+        ("dems", "0002_user_is_staff"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Reseaux',
+            name="Reseaux",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50)),
-                ('url', models.URLField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name="ID"
+                    ),
+                ),
+                ("name", models.CharField(max_length=50)),
+                ("url", models.URLField()),
             ],
         ),
         migrations.AlterModelOptions(
-            name='category',
-            options={'verbose_name': 'Categorie'},
+            name="category",
+            options={"verbose_name": "Categorie"},
         ),
         migrations.AlterModelOptions(
-            name='skill',
-            options={'verbose_name': 'Competance', 'verbose_name_plural': 'Competances'},
+            name="skill",
+            options={"verbose_name": "Competance", "verbose_name_plural": "Competances"},
         ),
         migrations.AlterModelOptions(
-            name='user',
-            options={'verbose_name': 'Profile'},
+            name="user",
+            options={"verbose_name": "Profile"},
         ),
         migrations.AddField(
-            model_name='project',
-            name='status',
-            field=models.CharField(choices=[('A venir', 'A venir'), ('Terminé', 'Terminé'), ('En cours', 'En cours')], default='Terminé', max_length=25),
+            model_name="project",
+            name="status",
+            field=models.CharField(
+                choices=[("A venir", "A venir"), ("Terminé", "Terminé"), ("En cours", "En cours")],
+                default="Terminé",
+                max_length=25,
+            ),
         ),
         migrations.AlterField(
-            model_name='blog',
-            name='date_published',
+            model_name="blog",
+            name="date_published",
             field=models.DateTimeField(default=django.utils.timezone.now),
         ),
         migrations.AlterField(
-            model_name='experience',
-            name='company',
-            field=models.CharField(max_length=255, verbose_name='Companie'),
+            model_name="experience",
+            name="company",
+            field=models.CharField(max_length=255, verbose_name="Companie"),
         ),
         migrations.AlterField(
-            model_name='experience',
-            name='title',
-            field=models.CharField(max_length=255, verbose_name='Titre'),
+            model_name="experience",
+            name="title",
+            field=models.CharField(max_length=255, verbose_name="Titre"),
         ),
         migrations.AlterField(
-            model_name='project',
-            name='link',
+            model_name="project",
+            name="link",
             field=models.URLField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='contact',
+            model_name="user",
+            name="contact",
             field=models.CharField(blank=True, max_length=20, null=True),
         ),
         migrations.CreateModel(
-            name='Service',
+            name="Service",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=255, verbose_name='Titre du Service')),
-                ('description', models.TextField(verbose_name='Description du Service')),
-                ('price', models.DecimalField(blank=True, decimal_places=2, max_digits=10, null=True, verbose_name='Prix estimé')),
-                ('image', models.ImageField(blank=True, null=True, upload_to='service/')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name="ID"
+                    ),
+                ),
+                ("title", models.CharField(max_length=255, verbose_name="Titre du Service")),
+                ("description", models.TextField(verbose_name="Description du Service")),
+                (
+                    "price",
+                    models.DecimalField(
+                        blank=True,
+                        decimal_places=2,
+                        max_digits=10,
+                        null=True,
+                        verbose_name="Prix estimé",
+                    ),
+                ),
+                ("image", models.ImageField(blank=True, null=True, upload_to="service/")),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Testimonial',
+            name="Testimonial",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100, verbose_name='Nom')),
-                ('email', models.EmailField(max_length=254)),
-                ('content', models.TextField(verbose_name='Témoignage')),
-                ('position', models.CharField(blank=True, max_length=100, null=True, verbose_name='Poste')),
-                ('company', models.CharField(blank=True, max_length=100, null=True, verbose_name='Entreprise')),
-                ('photo', models.ImageField(blank=True, max_length=255, null=True, upload_to='temoin/', verbose_name='Photo')),
-                ('date_published', models.DateTimeField(auto_now_add=True)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name="ID"
+                    ),
+                ),
+                ("name", models.CharField(max_length=100, verbose_name="Nom")),
+                ("email", models.EmailField(max_length=254)),
+                ("content", models.TextField(verbose_name="Témoignage")),
+                (
+                    "position",
+                    models.CharField(blank=True, max_length=100, null=True, verbose_name="Poste"),
+                ),
+                (
+                    "company",
+                    models.CharField(
+                        blank=True, max_length=100, null=True, verbose_name="Entreprise"
+                    ),
+                ),
+                (
+                    "photo",
+                    models.ImageField(
+                        blank=True,
+                        max_length=255,
+                        null=True,
+                        upload_to="temoin/",
+                        verbose_name="Photo",
+                    ),
+                ),
+                ("date_published", models.DateTimeField(auto_now_add=True)),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL
+                    ),
+                ),
             ],
         ),
     ]

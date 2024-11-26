@@ -6,38 +6,38 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('dems', '0003_reseaux_alter_category_options_alter_skill_options_and_more'),
+        ("dems", "0003_reseaux_alter_category_options_alter_skill_options_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='adresse',
+            model_name="user",
+            name="adresse",
             field=models.DateField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='user',
-            name='birthday',
+            model_name="user",
+            name="birthday",
             field=models.DateField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='user',
-            name='degree',
+            model_name="user",
+            name="degree",
             field=models.CharField(blank=True, max_length=50, null=True),
         ),
         migrations.AddField(
-            model_name='user',
-            name='role',
+            model_name="user",
+            name="role",
             field=models.CharField(blank=True, max_length=255, null=True),
         ),
         migrations.AddField(
-            model_name='user',
-            name='site',
+            model_name="user",
+            name="site",
             field=models.URLField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='user',
-            name='statut',
+            model_name="user",
+            name="statut",
             field=models.BooleanField(default=True),
         ),
     ]
