@@ -23,4 +23,4 @@ RUN chown -R app:app /app
 EXPOSE 8000
 
 # Run the application.
-CMD ["uvicorn", "config.asgi:application", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "portfolio.asgi:application", "--host", "0.0.0.0", "--port", "8080"]
