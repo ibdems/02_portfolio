@@ -1,5 +1,3 @@
-from tokenize import Comment
-
 from django.contrib import admin
 
 from dems.forms import BlogForm
@@ -7,6 +5,7 @@ from dems.forms import BlogForm
 from .models import (
     Blog,
     Category,
+    Comment,
     Contact,
     Education,
     Experience,
