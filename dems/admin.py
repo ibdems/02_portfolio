@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from dems.forms import BlogForm
+from myauth.models import User
 
 from .models import (
     Blog,
@@ -16,7 +17,6 @@ from .models import (
     Tache,
     Tag,
     Testimonial,
-    User,
 )
 
 # Register your models here.

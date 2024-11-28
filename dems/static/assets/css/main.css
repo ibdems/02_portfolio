@@ -146,17 +146,18 @@ h6 {
   --background-color: rgba(0, 0, 0, 0);
   color: var(--default-color);
   background-color: var(--background-color);
-  padding: 15px 0;
+  padding: 10px 0;
+  /* Réduction du padding pour équilibrer */
   transition: all 0.5s;
   z-index: 997;
-}
-
-.header .logo {
-  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .header .logo img {
-  max-height: 32px;
+  max-height: 100px;
+  /* Taille du logo augmentée */
   margin-right: 8px;
 }
 
@@ -169,8 +170,14 @@ h6 {
 
 .scrolled .header {
   box-shadow: 0px 0 18px rgba(0, 0, 0, 0.1);
+  padding: 5px 0;
+  /* Réduit la hauteur lors du défilement */
 }
 
+.scrolled .header .logo img {
+  max-height: 100px;
+  /* Taille du logo ajustée au scroll */
+}
 /* Global Header on Scroll
 ------------------------------*/
 .scrolled .header {
@@ -1472,4 +1479,13 @@ section,
 }
 
 /* hhhhhhhhhhhhhhhhh */
+.icon-connexion {
+  height: 35px;
+  width: 30px;
+}
 
+.site-logo {
+  height: 50px;
+  width: auto;
+  max-width: 100%;
+}

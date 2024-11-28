@@ -17,8 +17,8 @@ from dems.models import (
     Reseaux,
     Skill,
     Testimonial,
-    User,
 )
+from myauth.models import User
 
 
 # Create your views here.

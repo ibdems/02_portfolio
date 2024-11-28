@@ -4,7 +4,13 @@
 {% block title %}Accueil{% endblock title %}
 {% block content %}
 <main class="main">
-
+    {% if messages %}
+            <div class="alert alert-info" role="alert">
+                {% for message in messages %}
+                    <p class="text-center text-dark">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
     <!-- Hero Section -->
     <section id="hero" class="hero section dark-background">
 
