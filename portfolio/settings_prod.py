@@ -26,11 +26,7 @@ DEBUG = env("DEBUG")
 ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(",")
 
 # Configuration de la base de données
-DATABASES = {
-    "default": dj_database_url.config(
-        conn_health_checks=True
-    )  # Utilisation d'une URL de base de données pour simplifier la configuration
-}
+DATABASES = {"default": dj_database_url.config(conn_health_checks=True)}
 
 # Configuration des fichiers statiques pour utiliser WhiteNoise
 STORAGES = {
