@@ -31,9 +31,16 @@
         <div class="row">
 
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <h3 class="resume-title">Resumé</h3>
+            <div class="row">
+              <div class="col"></div>
+              <div class="col-8">
+                  <img src="{{profile.image_profile.url}}" class="img-fluid rounded-circle mb-5" style=" height: 300px;" alt="">
+              </div>
+              <div class="col"></div>
+            </div>
 
             <div class="resume-item pb-0">
+
               <h4>{{profile.first_name|title}} {{profile.last_name|title}}</h4>
               <p><em>{{profile.bio}}</em></p>
               <ul>
@@ -43,19 +50,30 @@
               </ul>
             </div><!-- Edn Resume Item -->
 
-            <h3 class="resume-title">Education</h3>
-            {% for education in educations %}
+            <h3 class="resume-title">Competances</h3>
+            {% for competance in competances %}
               <div class="resume-item">
-                <h4>{{education.degree}} {{education.institution}}</h4>
-                <h5>{{education.start_date}}-{% if education.end_date %}{{education.end_date}}{% else %}maintenant{% endif %}</h5>
-                <p><em>{{education.option}}</em></p>
-                <p>Diplome: {{education.obtention}}</p>
+                <h4>{{competance.name}} ({{competance.level}}%) </h4>
+
               </div><!-- Edn Resume Item -->
             {% endfor %}
 
           </div>
 
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+            <h3 class="resume-title">Education</h3>
+            {% for education in educations %}
+              <div class="resume-item">
+                <h4>{{education.degree}} </h4>
+                <p style="margin-top: -10px;">{{education.institution}}</p>
+                <h5 style="margin-top: -20px;">{{education.start_date}}-{% if education.end_date %}{{education.end_date}}{% else %}maintenant{% endif %}</h5>
+                {% if education.option %}
+                  <p style="margin-top: -10px;"><em>{{education.option}}</em></p>
+                {% endif %}
+                <p>Diplome: {{education.obtention}}</p>
+              </div><!-- Edn Resume Item -->
+            {% endfor %}
+
             <h3 class="resume-title">Experience Professionnelles</h3>
             {% for experience in experiences  %}
               <div class="resume-item">
@@ -68,7 +86,7 @@
               <p><em>{{experience.company}} </em></p>
               {% for tache in experience.tache_set.all %}
               <ul>
-                <li>{{tache.name}}</li>
+                <li style="margin-bottom: -20px;">{{tache.name}}</li>
               </ul>
               {% endfor %}
 

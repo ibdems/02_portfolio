@@ -116,6 +116,7 @@ SOCIALACCOUNT_PROVIDERS = {
         "AUTH_PARAMS": {
             "access_type": "online",
         },
+        "FIELDS": ["picture"],
     },
     "facebook": {
         "APP": {
@@ -138,6 +139,7 @@ SOCIALACCOUNT_PROVIDERS = {
             "link",
             "gender",
             "updated_time",
+            "picture",
         ],
         "EXCHANGE_TOKEN": True,
         "LOCALE_FUNC": lambda request: "en_US",
@@ -146,7 +148,7 @@ SOCIALACCOUNT_PROVIDERS = {
     },
     "github": {
         "APP": {"client_id": env("GITHUB_CLIENT_ID"), "secret": env("GITHUB_SECRET"), "key": ""},
-        "SCOPE": ["user:email"],
+        "SCOPE": ["user:email", "read:user"],
         "AUTH_PARAMS": {},
         "EXCHANGE_TOKEN": True,
     },

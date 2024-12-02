@@ -10,12 +10,14 @@ from .models import (
     Contact,
     Education,
     Experience,
+    ImageProject,
     Project,
     Reseaux,
     Service,
     Skill,
     Tache,
     Tag,
+    Tecnologies,
     Testimonial,
 )
 
@@ -46,9 +48,19 @@ class CategoryAdmin(admin.ModelAdmin):
     pass
 
 
+@admin.register(ImageProject)
+class ImageProjectAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Tecnologies)
+class TechnologieAdmin(admin.ModelAdmin):
+    pass
+
+
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ["title", "description", "image", "category", "link"]
+    list_display = ["title", "description", "image_first", "category", "link"]
     exclude = ["user"]
 
     def save_model(self, request, obj, form, change):

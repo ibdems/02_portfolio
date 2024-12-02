@@ -48,6 +48,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     birthday = models.DateField(null=True, blank=True)
     degree = models.CharField(max_length=50, blank=True, null=True)
     role = models.CharField(max_length=255, null=True, blank=True)
+    image = models.URLField(blank=True, null=True)
 
     objects = UserManager()
 

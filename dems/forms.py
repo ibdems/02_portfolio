@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Blog, Comment, Contact
+from .models import Blog, Comment, Contact, Testimonial
 
 
 class BlogForm(forms.ModelForm):
@@ -25,10 +25,16 @@ class ContactForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ["name", "content"]
+        fields = ["content"]
         widget = {
             "name": forms.TextInput(attrs={"class": "form-control", "placeholder": "Votre nom"}),
             "content": forms.Textarea(
                 attrs={"class": "form-control", "placeholder": "Votre commentaire"}
             ),
         }
+
+
+class TemoignageForm(forms.ModelForm):
+    class Meta:
+        model = Testimonial
+        fields = ["content", "position", "company", "photo"]

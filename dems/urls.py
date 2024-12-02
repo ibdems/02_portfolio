@@ -11,6 +11,9 @@ from .views import (
     ResumeView,
 )
 
+handler404 = "dems.views.custom_404_view"  # noqa: F811
+handler500 = "dems.views.custom_500_view"  # noqa: F811
+
 urlpatterns = [
     path("", IndexView.as_view(), name="index"),
     path("about/", AboutView.as_view(), name="about"),

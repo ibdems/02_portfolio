@@ -1,36 +1,29 @@
-
 {% extends "base.html" %}
 {% load static %}
 {% block title %}Accueil{% endblock title %}
 {% block content %}
 <main class="main">
-    {% if messages %}
-            <div class="alert alert-info" role="alert">
-                {% for message in messages %}
-                    <p class="text-center text-dark">{{ message }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
-    <!-- Hero Section -->
-    <section id="hero" class="hero section dark-background">
+  <!-- Hero Section -->
+  <section id="hero" class="hero section dark-background">
 
-      <img src=" {% static 'assets/img/dems.jpg' %}" alt="" data-aos="fade-in">
+    <img src=" {% static 'assets/img/dems.jpg' %}" alt="" data-aos="fade-in" class="img-fluid">
 
-      <div class="container" data-aos="zoom-out" data-aos-delay="100">
-        <h2>Ibrahima Diallo</h2>
-        <p>Je suis <span class="typed" data-typed-items="Developpeur Backend avec Django"></span><span class="typed-cursor typed-cursor--blink"></span></p>
-        <div class="social-links">
-              {% for reseau in reseaux %}
-              <a href="{{ reseau.url }}">
-                <i
-                  class="bi bi-{{ reseau.name|lower }}{% if reseau.name == 'x' or reseau.name == 'twitter' %}-x{% endif %}"></i>
-              </a>
-              {% endfor %}
-            </div>
+    <div class="container" data-aos="zoom-out" data-aos-delay="100">
+      <h2>Ibrahima Diallo</h2>
+      <p>Je suis <span class="typed" data-typed-items=" Developpeur Backend avec Django"></span>
+        <span  class="typed-cursor typed-cursor--blink"></span>
+      </p>
+      <div class="social-links">
+        {% for reseau in reseaux %}
+        <a href="{{ reseau.url }}">
+          <i
+            class="bi bi-{{ reseau.name|lower }}{% if reseau.name == 'x' or reseau.name == 'twitter' %}-x{% endif %}"></i>
+        </a>
+        {% endfor %}
       </div>
+    </div>
 
-    </section><!-- /Hero Section -->
+  </section><!-- /Hero Section -->
 
-  </main>
+</main>
 {% endblock content %}
-

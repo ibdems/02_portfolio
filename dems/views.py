@@ -2,10 +2,11 @@ from datetime import date
 from typing import Any
 
 from django.contrib import messages
+from django.db.models.query import QuerySet
 from django.shortcuts import redirect, render
 from django.views.generic import DetailView, ListView, TemplateView
 
-from dems.forms import CommentForm, ContactForm
+from dems.forms import CommentForm, ContactForm, TemoignageForm
 from dems.models import (
     Blog,
     Category,
@@ -32,8 +33,10 @@ class IndexView(TemplateView):
         return context
 
 
-class AboutView(TemplateView):
+class AboutView(ListView):
+    model = Skill
     template_name = "about.html"
+    context_object_name = "skills"
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -48,7 +51,6 @@ class AboutView(TemplateView):
                 < (context["profile"].birthday.month, context["profile"].birthday.day)
             )
         )
-        context["skills"] = Skill.objects.all()
         context["experiences"] = Experience.objects.all()
         context["educations"] = Education.objects.all()
         context["temoignages"] = Testimonial.objects.all()
@@ -57,6 +59,18 @@ class AboutView(TemplateView):
         context["total_blogs"] = Blog.objects.count()
         context["total_messages"] = Contact.objects.count()
         return context
+
+    def post(self, request, *args, **kwargs):
+        form = TemoignageForm(request.POST)
+        if form.is_valid():
+            temoignage = form.save(commit=False)
+            temoignage.user = request.user
+            temoignage.save()
+            messages.success(request, "Temoignage ajouter avec success")
+            return redirect("about")
+        else:
+            messages.error(request, "Echec lors de l'envoie du message")
+            return redirect("about")
 
 
 class ProjectListView(ListView):
@@ -76,10 +90,17 @@ class ProjectDetailView(DetailView):
     context_object_name = "project"
     model = Project
 
+    def get_queryset(self) -> QuerySet[Any]:
+        queryset = super().get_queryset()
+        queryset = queryset.prefetch_related("image_project", "technologies")
+        return queryset
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
+        project = self.get_object()
         form = CommentForm()
         context["form"] = form
+        context["comments"] = project.comment_project.all().select_related("user")
         return context
 
     def post(self, request, *args, **kwargs):
@@ -87,6 +108,7 @@ class ProjectDetailView(DetailView):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.project = self.get_object()
+            comment.user = request.user
             comment.save()
             messages.success(request, "Commentaire envoyer avec success")
             return redirect("detail_project", pk=self.get_object().pk)
@@ -104,6 +126,7 @@ class ResumeView(TemplateView):
         context["profile"] = User.objects.get(email="ibrahima882001@gmail.com")
         context["educations"] = Education.objects.all()
         context["experiences"] = Experience.objects.all()
+        context["competances"] = Skill.objects.all()
         return context
 
 
@@ -164,3 +187,11 @@ class BlogDetailView(DetailView):
         form = CommentForm()
         context["form"] = form
         return context
+
+
+def custom_404_view(request):
+    return render(request, "404.html")
+
+
+def custom_500_view(request):
+    return render(request, "500.html")

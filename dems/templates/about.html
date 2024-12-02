@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+{% load static %}
+{% load allauth account %}
+{% load socialaccount %}
 {% block title %}A propos{% endblock title %}
 {% block content %}
 <!-- Page Title -->
@@ -7,7 +10,13 @@
       <div class="heading">
         <div class="container">
           <div class="row d-flex justify-content-center text-center">
+
             <div class="col-lg-8">
+              {% if messages %}
+              {% for message in messages %}
+              <div class="alert alert-info">{{ message }}</div>
+              {% endfor %}
+              {% endif %}
               <h1>A Propos</h1>
               <p class="mb-0">Dans cette section il y'a mes informations personnelles, mon parcours, mon experience professionnelle et des temoignages.</p>
             </div>
@@ -168,6 +177,7 @@
       {% for education in educations %}
       <div class="col-md-6"> <!-- Colonne pour afficher deux éléments côte à côte -->
         <div class="features-item">
+          <p><strong>Intitulé:</strong> {{education.degree}}</p>
           {% if education.institution %}
           <p><strong>Institution:</strong> {{education.institution}}</p>
           {% endif %}
@@ -248,7 +258,7 @@
 </section><!-- /Interests Section -->
 
 <!-- Testimonials Section -->
-{% if temoignages.exists %}
+
 <section id="testimonials" class="testimonials section">
 
   <!-- Section Title -->
@@ -295,8 +305,13 @@
               <span>{{ temoignage.content }}</span>
               <i class="bi bi-quote quote-icon-right"></i>
             </p>
+            {% if temoignage.photo %}
             <img src="{{ temoignage.photo.url }}" class="testimonial-img" alt="">
-            <h3>{{ temoignage.name }}</h3>
+            {% elif temoignage.user.image %}
+            <img src="{{ temoignage.user.image }}" class="testimonial-img" alt="">
+            {% endif %}
+
+            <h3>{{ temoignage.user.first_name }} {{temoignage.user.last_name}}</h3>
             <h4>{{ temoignage.post }} {% if temoignage.company %} ({{ temoignage.company }}) {% endif %}</h4>
           </div>
         </div><!-- End testimonial item -->
@@ -307,8 +322,84 @@
 
   </div>
 
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-lg-2 col-7">
+      <button class="btn text-black fw-bold border-transparent" style="background-color: rgb(165, 56, 5);" data-bs-toggle="modal" data-bs-target="#testimonialModal">
+        Ajouter un temoignage
+      </button>
+    </div>
+  </div>
+
 </section><!-- /Testimonials Section -->
-{% endif %}
+
+<!-- Modal -->
+<div class="modal fade" id="testimonialModal" tabindex="-1" aria-labelledby="testimonialModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg bg-dark">
+        <div class="modal-content bg-dark">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="testimonialModalLabel">
+                    {% if user.is_authenticated %}
+                        Ajouter un Témoignage
+                    {% else %}
+                        Connectez-vous pour Ajouter un Témoignage
+                    {% endif %}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                {% if user.is_authenticated %}
+                    <!-- Formulaire d'ajout de témoignage -->
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="content" class="form-label">Témoignage</label>
+                            <textarea
+                                class="form-control bg-dark text-light"
+                                id="content"
+                                name="content"
+                                rows="4"
+                                required
+                            ></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="position" class="form-label">Poste (facultatif)</label>
+                            <input type="text" class="form-control bg-dark text-light" id="position" name="position">
+                        </div>
+                        <div class="mb-3">
+                            <label for="company" class="form-label">Entreprise (facultatif)</label>
+                            <input type="text" class="form-control bg-dark text-light" id="company" name="company">
+                        </div>
+                        <div class="mb-3">
+                            <label for="photo" class="form-label">Photo (facultatif)</label>
+                            <input type="file" class="form-control bg-dark text-light" id="photo" name="photo">
+                        </div>
+                        <button type="submit" class="btn text-black fw-bold border-transparent" style="background-color: rgb(165, 56, 5);">Soumettre</button>
+                    </form>
+                {% else %}
+                    <!-- Demande de connexion -->
+                    <p class="text-center">Veuillez vous connecter pour soumettre un témoignage.</p>
+                    <div class="d-flex justify-content-around align-items-center mt-3">
+                      <a href="{% provider_login_url provider='google' %}">
+                        <img src="{% static 'assets/img/google.png' %}" alt="Google" class="login-logo">
+                      </a>
+                      <a href="{% provider_login_url provider='facebook' %}">
+                        <img src="{% static 'assets/img/facebook.png' %}" alt="Facebook" class="login-logo">
+                      </a>
+                      <a href="{% provider_login_url provider='github' %}">
+                        <img src="{% static 'assets/img/github.png' %}" alt="GitHub" class="login-logo" height="30">
+                      </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 
 

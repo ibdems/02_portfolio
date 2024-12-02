@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Erreur 404 - Page Non Trouvée</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+        .error-container {
+            text-align: center;
+            background-color: rgba(30, 30, 30, 0.8);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 15px 25px rgba(0,0,0,0.5);
+            animation: float 3s ease-in-out infinite;
+        }
+        .error-code {
+            font-size: 10rem;
+            font-weight: bold;
+            color: #CC5500;
+            text-shadow: 0 0 20px #91420a;
+            animation: pulse 2s infinite;
+        }
+        .error-message {
+            margin-top: 1rem;
+            font-size: 1.5rem;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .btn-back {
+            margin-top: 2rem;
+            background-color: #CC5500;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        .btn-back:hover {
+            background-color: #CC5500;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container text-center">
+        <div class="error-code">404</div>
+        <h1 class="error-message">Oops ! Page Non Trouvée</h1>
+        <p>La page que vous recherchez n'existe pas ou a été déplacée.</p>
+        <a href="{% url 'index' %}" class="btn btn-danger btn-back">Retour à l'Accueil</a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const errorCode = document.querySelector('.error-code');
+            const container = document.querySelector('.error-container');
+
+            // Effet de scintillement
+            setInterval(() => {
+                errorCode.style.opacity = errorCode.style.opacity === '1' ? '0.7' : '1';
+            }, 1000);
+
+            // Effet de souris
+            container.addEventListener('mousemove', (e) => {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+                container.style.transform = `rotateX(${yAxis}deg) rotateY(${xAxis}deg)`;
+            });
+
+            container.addEventListener('mouseleave', () => {
+                container.style.transform = 'rotateX(0deg) rotateY(0deg)';
+            });
+        });
+    </script>
+</body>
+</html>

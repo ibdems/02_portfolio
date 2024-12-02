@@ -32,10 +32,6 @@ class Category(models.Model):
         verbose_name = "Categorie"
 
 
-class ImageProject(models.Model):
-    image = models.ImageField(upload_to="image/", blank=True, null=True)
-
-
 class Project(models.Model):
     statusProject = [
         ("A venir", "A venir"),
@@ -45,7 +41,7 @@ class Project(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True)
-    image = models.ForeignKey(ImageProject, on_delete=models.CASCADE, related_name="project_image")
+    image_first = models.ImageField(upload_to="image/", blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -54,6 +50,20 @@ class Project(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+
+class ImageProject(models.Model):
+    image = models.ImageField(upload_to="image/", blank=True, null=True)
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, null=True, related_name="image_project"
+    )
+
+
+class Tecnologies(models.Model):
+    name = models.CharField(max_length=100)
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, null=True, related_name="technologies"
+    )
 
 
 class Experience(models.Model):
@@ -116,12 +126,16 @@ class Blog(models.Model):
 
 
 class Comment(models.Model):
-    name = models.CharField(max_length=100, blank=True, null=True)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, blank=True, null=True, related_name="user_comment"
+    )
     content = models.TextField()
     user_response = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, null=True, blank=True)
     date_published = models.DateTimeField(auto_now_add=True)
-    project = models.ForeignKey(Project, blank=True, null=True, on_delete=models.CASCADE)
+    project = models.ForeignKey(
+        Project, blank=True, null=True, on_delete=models.CASCADE, related_name="comment_project"
+    )
 
     def __str__(self) -> str:
         return self.content
@@ -147,8 +161,9 @@ class Reseaux(models.Model):
 
 
 class Testimonial(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Nom")
-    email = models.EmailField()
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, blank=True, null=True, related_name="user_testimonial"
+    )
     content = models.TextField(verbose_name="Témoignage")
     position = models.CharField(max_length=100, blank=True, null=True, verbose_name="Poste")
     company = models.CharField(max_length=100, blank=True, null=True, verbose_name="Entreprise")
