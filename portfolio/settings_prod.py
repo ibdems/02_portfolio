@@ -13,6 +13,10 @@ env = environ.Env(
 # Définition du répertoire de base du projet
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Configuration pour le stockage des fichiers media en production
+DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+
+
 # Lecture des variables d'environnement à partir du fichier .env
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
