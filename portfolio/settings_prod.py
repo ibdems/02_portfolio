@@ -13,9 +13,6 @@ env = environ.Env(
 # Définition du répertoire de base du projet
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Configuration pour le stockage des fichiers media en production
-DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
-
 
 # Lecture des variables d'environnement à partir du fichier .env
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
@@ -32,8 +29,15 @@ ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(",")
 # Configuration de la base de données
 DATABASES = {"default": dj_database_url.config(conn_health_checks=True)}
 
+# Configuration des fichiers media
+MEDIA_URL = "/media/"  # URL pour accéder aux fichiers media
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # Configuration des fichiers statiques pour utiliser WhiteNoise
 STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "OPTIONS": {"location": MEDIA_ROOT},
+    },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
