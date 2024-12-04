@@ -8,8 +8,6 @@ services:
       - "443:443"
     labels:
       - traefik.enable=true
-      - traefik.docker.network=traefik-public
-      - traefik.contraint-label=traefik-public
       - traefik.http.middlewares.https-redirect.redirectscheme.scheme=https
       - traefik.http.middlewares.https-redirect.redirectscheme.permanent=true
       - traefik.http.middlewares.https-compress.compress=true
@@ -25,8 +23,8 @@ services:
       - --certificatesresolvers.le.acme.email=ibrahima882001@gmail.com
       - --certificatesresolvers.le.acme.tlschallenge=true
       - --accesslog
-      - --log
       - --accesslog.filePath=/var/log/access.log
+      - --log
       - --api
     networks:
       - traefik-public

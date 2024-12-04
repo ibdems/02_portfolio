@@ -1,17 +1,35 @@
 services:
   web:
-    image: devibrahima/task-essaie:latest
+    image: devibrahima/portfolio:latest
     env_file:
       - .env
     restart: always
+    ports:
+      - "8080:8080"  # Expose le port 8080 pour accéder à Django
     labels:
       - traefik.enable=true
-      - traefik.docker.network=traefik-public
-      - traefik.http.routers.app-http.rule=PathPrefix(`/`)
-      - traefik.http.routers.app-http.entrypoints=http
-      - traefik.http.routers.app-http.middlewares=https-redirect
-      - traefik.http.routers.app-https.rule=Host(`${DOMAIN?Variable not set}`)
-      - traefik.http.routers.app-http.entrypoints=https
-      - traefik.http.routers.app-http.tls=true
-      - traefik.http.routers.app-http.tls.certresolver=le
+
+      # Route HTTP (redirection vers HTTPS)
+      - traefik.http.routers.web-http.rule=PathPrefix(`/`)
+      - traefik.http.routers.web-http.entrypoints=http
+      - traefik.http.routers.web-http.middlewares=https-redirect
+
+      # Route HTTPS
+      - traefik.http.routers.web-https.rule=Host(`${DOMAIN}`)
+      - traefik.http.routers.web-https.entrypoints=https
+      - traefik.http.routers.web-https.tls=true
+      - traefik.http.routers.web-https.tls.certresolver=le
       - traefik.http.services.app.loadbalancer.server.port=8080
+    networks:
+      - traefik-public
+
+    volumes:
+      - staticfiles:/app/staticfiles/
+      - ./media:/app/media
+networks:
+  traefik-public:
+    external: true
+
+volumes:
+  staticfiles:
+  media:
