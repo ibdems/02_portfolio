@@ -29,19 +29,37 @@ ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(",")
 # Configuration de la base de données
 DATABASES = {"default": dj_database_url.config(conn_health_checks=True)}
 
-# Configuration des fichiers media
-MEDIA_URL = "/media/"  # URL pour accéder aux fichiers media
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-# Configuration des fichiers statiques pour utiliser WhiteNoise
+# AWS Credentials
+AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
+AWS_S3_REGION_NAME = "eu-west-3"
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+
+# Static and Media settings
+MEDIAFILES_LOCATION = "portfolio/media"
+
+# Static and Media URLs
+MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/"
+
+# Cache control for static files
+AWS_S3_OBJECT_PARAMETERS = {
+    "CacheControl": "max-age=86400",  # Cache pour 1 jour
+}
+
+# File Overwrite
+AWS_S3_FILE_OVERWRITE = False  # Ne pas écraser les fichiers existants
+
+# Storage backend configuration
 STORAGES = {
     "default": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
-        "OPTIONS": {"location": MEDIA_ROOT},
+        "BACKEND": "portfolio.storages.MediaStorage",
     },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
+
 
 # Configuration des domaines de confiance pour les requêtes CSRF
 CSRF_TRUSTED_ORIGINS = env("TRUSTED_ORIGINS").split(",")
@@ -64,5 +82,3 @@ SECURE_PROXY_SSL_HEADER = (
 ADMINS = [
     ("Ibrahima", "ibrahima882001@gmail.com")
 ]  # Les administrateurs recevront des notifications en cas d'erreurs graves
-
-# Les configurations AWS sont exclues des commentaires dans cette version

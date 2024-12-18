@@ -11,7 +11,7 @@ on:
 
 jobs:
   check_syntaxes:
-    runs-on: ubuntu-latest
+    runs-on:
     strategy:
       matrix:
        python-version: [3.12]
