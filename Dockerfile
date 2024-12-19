@@ -18,7 +18,7 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 COPY . .
 RUN chown -R app:app /app
 # Expose the port that the application listens on.
-EXPOSE 8000
+EXPOSE 8080
 
 # Run the application.
 CMD ["uvicorn", "portfolio.asgi:application", "--host", "0.0.0.0", "--port", "8080"]
