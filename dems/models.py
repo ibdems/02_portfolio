@@ -173,7 +173,7 @@ class Testimonial(models.Model):
     date_published = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Témoignage de {self.name}"
+        return f"Témoignage de {self.user}"
 
 
 class Service(models.Model):
