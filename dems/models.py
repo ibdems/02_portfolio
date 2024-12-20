@@ -1,3 +1,4 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils import timezone
@@ -114,7 +115,7 @@ class Tag(models.Model):
 
 class Blog(models.Model):
     title = models.CharField(max_length=255)
-    content = models.TextField()
+    content = RichTextUploadingField()
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag, blank=True)
     image = models.ImageField(upload_to="blog/", blank=True, null=True)

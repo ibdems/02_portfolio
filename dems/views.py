@@ -1,7 +1,9 @@
 from datetime import date
 from typing import Any
 
+from django.conf import settings
 from django.contrib import messages
+from django.core.mail import send_mail
 from django.db.models.query import QuerySet
 from django.shortcuts import redirect, render
 from django.views.generic import DetailView, ListView, TemplateView
@@ -146,6 +148,17 @@ class ContactView(TemplateView):
 
         if form.is_valid():
             form.save()
+            subject = f"Depuis le portfolio: {form.cleaned_data['subject']}"  # Sujet de l'email
+            message = (
+                f"Nom: {form.cleaned_data['name']}\n"
+                f"Email: {form.cleaned_data['email']}\n"
+                f"Message:\n{form.cleaned_data['message']}"
+            )
+            from_email = settings.DEFAULT_FROM_EMAIL
+            recipient_list = ["ibrahima882001@gmail.com"]
+
+            # Envoyer l'email
+            send_mail(subject, message, from_email, recipient_list)
             messages.success(request, "Votre message a ete envoyer avec success")
             return redirect("contact")
         else:

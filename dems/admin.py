@@ -91,6 +91,7 @@ class EducationAdmin(admin.ModelAdmin):
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
     list_display = ["title", "date_published"]
+    filter_horizontal = ("tags",)
     form = BlogForm
 
     def save_model(self, request, obj, form, change):

@@ -8,6 +8,7 @@ urlpatterns = [
     path("", include("dems.urls")),
     path("dems/", admin.site.urls),
     path("accounts/", include("myauth.urls")),
+    path("ckeditor/", include("ckeditor_uploader.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:  # Assurez-vous que c'est en mode DEBUG

@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     "myauth",
     "dems",
     "storages",
+    "ckeditor",
+    "ckeditor_uploader",
 ]
 
 MIDDLEWARE = [
@@ -186,6 +188,26 @@ AUTH_USER_MODEL = "dems.User"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
+# Config ckeditor
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_CONFIGS = {
+    "default": {
+        "toolbar": "full",  # La barre d'outils complète
+        "height": 300,  # Hauteur de l'éditeur
+        "width": "auto",  # Largeur ajustée automatiquement
+        "extraPlugins": ",".join(
+            [
+                "uploadimage",  # Plugin pour uploader des images
+            ]
+        ),  # Active le plugin pour gérer les images
+        "filebrowserUploadUrl": "/ckeditor/upload/",  # URL pour le téléchargement
+        "filebrowserBrowseUrl": "/ckeditor/browse/",  # URL pour parcourir les fichiers
+    },
+}
+
+
+CKEDITOR_ALLOW_NONIMAGE_FILES = False
+
 # Redirection apres connnexion et deonnection
 LOGIN_REDIRECT_URL = "/"
 ACCOUNT_LOGOUT_REDIRECT_URL = "/"
@@ -224,9 +246,9 @@ INTERNAL_IPS = [
 
 # env mail
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "localhost"
-EMAIL_PORT = 1025
-EMAIL_HOST_USER = ""
-EMAIL_HOST_PASSWORD = ""
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = False
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "ibrahima882001@gmail.com"
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL = "ibrahima882001@gmail.com"
+EMAIL_USE_TLS = True
