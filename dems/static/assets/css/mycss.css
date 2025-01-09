@@ -30,3 +30,31 @@
     left: 50%;
     transform: translateX(-50%);
 }
+
+/* Style personnalisé pour le bouton LinkedIn */
+.btn-linkedin {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #0077b5;
+    /* Couleur officielle de LinkedIn */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-linkedin:hover {
+    background-color: #005582;
+    /* Couleur plus foncée au survol */
+}
+
+.btn-linkedin:active {
+    background-color: #003f5e;
+    /* Couleur encore plus foncée au clic */
+}

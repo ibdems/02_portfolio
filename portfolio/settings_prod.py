@@ -79,6 +79,6 @@ SECURE_PROXY_SSL_HEADER = (
 )  # Indique que les requêtes passent par un proxy HTTPS
 
 # Configuration des administrateurs de l'application
-ADMINS = [
-    ("Ibrahima", "ibrahima882001@gmail.com")
-]  # Les administrateurs recevront des notifications en cas d'erreurs graves
+# ADMINS = [
+#     ("Ibrahima", "ibrahima882001@gmail.com")
+# ]
